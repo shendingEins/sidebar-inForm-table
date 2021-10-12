@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Sidebar 03</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <style>
+	  html, body {
+		  height:100vh;
+	  }
+	  /* 给导航栏让位置 */
+	  #content, .wrapper{
+		  height: calc(100vh - 45px);
+	  }
+	  #sidebar{
+		  background: #d9d9ed;
+		  
+	  }
+	  
+  </style>
+  <body> 
+	  <!-- 导航栏 -->
+	  <div id="navbar" style="background-color: #babae5; height:45px;"></div>
+		<!-- 侧边和地图主体DIV -->
+		<div class="wrapper d-flex align-items-stretch">
+			<!-- 侧边栏 -->
+			<nav id="sidebar" class="active">
+				<!-- 右上角缩放按钮，可以自定义样式-->
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+		<!-- 侧边栏主体div -->
+		<div class="p-4">
+			<!-- todo:这里面放输入属性的表单 -->
+			<form>
+				<div class="form-group row">
+				  <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+				  <div class="col-sm-9">
+					<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+				  </div>
+				</div>
+				<div class="form-group row">
+				  <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+				  <div class="col-sm-9">
+					<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+				  </div>
+				</div>
+				<fieldset class="form-group">
+				  <div class="row">
+					<legend class="col-form-label col-sm-3 pt-0">Radios</legend>
+					<div class="col-sm-9">
+					  <div class="form-check">
+						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+						<label class="form-check-label" for="gridRadios1">
+						  First radio
+						</label>
+					  </div>
+					  <div class="form-check">
+						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+						<label class="form-check-label" for="gridRadios2">
+						  Second radio
+						</label>
+					  </div>
+					  <div class="form-check disabled">
+						<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+						<label class="form-check-label" for="gridRadios3">
+						  Third disabled radio
+						</label>
+					  </div>
+					</div>
+				  </div>
+				</fieldset>
+				<div class="form-group row">
+				  <div class="col-sm-3">Checkbox</div>
+				  <div class="col-sm-9">
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" id="gridCheck1">
+					  <label class="form-check-label" for="gridCheck1">
+						Example checkbox
+					  </label>
+					</div>
+				  </div>
+				</div>
+				<div class="form-group row">
+				  <div class="col-sm-6">
+					<button type="submit" class="btn btn-primary">Sign in</button>
+				  </div>
+				  <div class="col-sm-6">
+					<button type="submit" class="btn btn-primary">Sign in</button>
+				  </div>
+				</div>
+			  </form>
+			  <!-- todo:这里面放输入属性的表单--end -->
+		  		<!-- <h1><a href="index.html" class="logo">Flash</a></h1>
+	        <ul class="list-unstyled components mb-5">
+	          <li class="active">
+	            <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+	          </li>
+	          <li>
+	              <a href="#"><span class="fa fa-user mr-3"></span> About</a>
+	          </li>
+	          <li>
+              <a href="#"><span class="fa fa-briefcase mr-3"></span> Portfolio</a>
+	          </li>
+	          <li>
+              <a href="#"><span class="fa fa-sticky-note mr-3"></span> Blog</a>
+	          </li>
+	          <li>
+              <a href="#"><span class="fa fa-paper-plane mr-3"></span> Contact</a>
+	          </li>
+	        </ul> -->
+
+	        <!-- <div class="mb-5">
+						<h3 class="h6 mb-3">Subscribe for newsletter</h3>
+						<form action="#" class="subscribe-form">
+	            <div class="form-group d-flex">
+	            	<div class="icon"><span class="icon-paper-plane"></span></div>
+	              <input type="text" class="form-control" placeholder="Enter Email Address">
+	            </div>
+	          </form>
+					</div> -->
+
+	        <div class="footer">
+	        	<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						  <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a> -->
+						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+	        </div>
+
+	      </div>
+    	</nav>
+
+        <!-- 页面主体  -->
+      <div id="mapContent" class="p-4 p-md-5 pt-5">
+        <h2>地图</h2>
+        <div id="map"></div>
+      </div>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

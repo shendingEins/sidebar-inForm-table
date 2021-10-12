@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>管调通界面</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/jquery.editable-select.css">
+		
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <style>
+	  html, body {
+		  height:100vh;
+	  }
+	  /* 给导航栏让位置 */
+	  #content, .wrapper{
+		  height: calc(100vh - 45px);
+	  }
+	  #sidebar{
+		  background: #d9d9ed;  
+	  }
+	  
+
+  </style>
+  <body> 
+	
+	  <!-- 导航栏 -->
+	  <div id="navbar" style="background-color: #babae5; height:45px;"></div>
+		<!-- 侧边和地图主体DIV -->
+		<div class="wrapper d-flex align-items-stretch">
+			<!-- 侧边栏 -->
+			<nav id="sidebar" class="active">
+				<!-- 右上角缩放按钮，可以自定义样式-->
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+		<!-- 侧边栏主体div -->
+		<div id="leftBar" class="p-4" style="overflow-y:auto; max-height: calc(100vh - 45px);">
+			<!-- fixed:这里面放抽屉的：输入属性的表单 -->
+			<form id="pointform" class="myform">
+				<div class="form-group row" for="inputCID" style="display: none;">
+					<label for="inputCID" class="col-sm-3 col-form-label">ID</label>
+					<div class="col-sm-9">
+						<input type="text" disabled class="form-control" id="inputCID" name="inputCID" placeholder="ID">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="PointName" class="col-sm-3 col-form-label">管井编码</label>
+					<div class="col-sm-9">
+						<input type="text" disabled class="form-control" id="PointName" name="PointName" placeholder="管井编码">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="ProId" class="col-sm-3 col-form-label">工程编号</label>
+					<div class="col-sm-9">
+						<input type="text" disabled class="form-control" id="ProId" name="ProId" placeholder="ProId">
+					</div>
+				</div>
+				<!-- fixed: 关于下拉框可输入问题-->
+				<div class="form-group row">
+					<label for="Type" class="col-sm-3 col-form-label">类型</label>
+					<div class="col-sm-9">
+						<!-- 方法五【采用】：使用editable-select插件https://blog.csdn.net/qq_37244098/article/details/112796246  -->
+						<select id="Type" name="Type" class="form-control">							
+						</select> 
+						<!-- 方法四：用li模拟下拉框 https://www.jianshu.com/p/97252c501e91-->
+						<!-- 方法三：在datalist里加select解决浏览器兼容性问题，但是样式和方法二一样出现问题 -->
+						<!-- 方法二：用input里放datalist，js要改name（+"list"）。但是样式（位置）上会出问题且不能用css调整 -->
+						<!--<input id="Type" name="Type" class="form-control" list="Typelist">						
+						 <datalist id="Typelist">										
+						</datalist> -->
+						<!-- 方法一：用select下拉框， 问题是只能选择不可以输入-->
+						<!-- <select id="Type" name="Type" class="form-control">							
+						</select> -->
+					</div>
+				</div>
+				<!-- fixed: 关于下拉框可输入问题--end-->
+				<div class="form-group row">
+					<label for="Func" class="col-sm-3 col-form-label">用途</label>
+					<div class="col-sm-9">
+						<select id="Func" name="Func" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="PLevel" class="col-sm-3 col-form-label">等级</label>
+					<div class="col-sm-9">
+						<select id="PLevel" name="PLevel" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="CType" class="col-sm-3 col-form-label">井盖类型</label>
+					<div class="col-sm-9">
+						<select id="CType" name="CType" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="CSpec" class="col-sm-3 col-form-label">井盖规格</label>
+					<div class="col-sm-9">
+						<input type="text" id="CSpec" name="CSpec" class="form-control" placeholder="单位（mm）">
+					</div>
+				</div>				
+				<div class="form-group row align-items-center"><!-- 用栅格布局的垂直居中：父元素加align-items-center -->
+					<label class="col-sm-3 col-form-label">井盖完好</label>
+					<div class="col-sm-9">
+						<div class="form-check form-check-inline">
+							<input checked class="form-check-input" type="radio" name="CState" value="是">
+							<label class="form-check-label" for="CState1">是</label>
+						  </div>
+						  <div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="CState" value="否">
+							<label class="form-check-label" for="CState2">否</label>
+						  </div>
+					</div>
+				</div>
+				<div class="form-group row align-items-center">
+					<label class="col-sm-3 col-form-label">井室问题</label>
+					<div class="col-sm-9">
+						<div class="form-check form-check-inline">
+							<input checked class="form-check-input" type="radio" name="DState" id="DState1" value="有">
+							<label class="form-check-label" for="DStateradio1">有</label>
+						  </div>
+						  <div class="form-check form-check-inline">
+							<input class="form-check-input" checked type="radio" name="DState" id="DState2" value="无">
+							<label class="form-check-label" for="DStateradio2">无</label>
+						  </div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Remark" class="col-sm-3 col-form-label">备注</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" id="Remark" name="Remark"></textarea>
+					</div>	
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-6">
+					  <button id="confirm" type="submit" class="btn btn-primary">确认</button>
+					</div>
+					<div class="col-sm-6">
+					  <button type="submit" class="btn btn-primary">取消</button>
+					</div>
+				</div>
+			  </form>
+			  <form id="lineform"  class="myform" style="display: none;">
+				<div class="form-group row">
+					<label for="StartName" class="col-sm-3 col-form-label">起点井</label>
+					<div class="col-sm-9">
+						<input type="text" id="StartName" disabled name="StartName" class="form-control">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="EndName" class="col-sm-3 col-form-label">终点井</label>
+					<div class="col-sm-9">
+						<input type="text" id="EndName" disabled name="EndName" class="form-control">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="ProId" class="col-sm-3 col-form-label">工程编号</label>
+					<div class="col-sm-9">
+						<input type="text" disabled class="form-control" id="ProId" name="ProId" placeholder="XXXXXXXX">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="ProType" class="col-sm-3 col-form-label">工程类型</label>
+					<div class="col-sm-9">
+						<select id="ProType" name="ProType" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="PipType" class="col-sm-3 col-form-label">类型</label>
+					<div class="col-sm-9">
+						<select id="PipType" name="PipType" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Flow" class="col-sm-3 col-form-label">流向</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="Flow" name="Flow" placeholder="">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Mat" class="col-sm-3 col-form-label">管材</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="Mat" name="Mat" placeholder="">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Diameter" class="col-sm-3 col-form-label">管径</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="Diameter" name="Diameter" placeholder="单位（mm）">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="SecDiameter" class="col-sm-3 col-form-label">第二管径</label>
+					<div class="col-sm-9">
+						<input type="text" disabled class="form-control" id="SecDiameter" name="SecDiameter" placeholder="单位（mm）">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Ground" class="col-sm-3 col-form-label">路面类型</label>
+					<div class="col-sm-9">
+						<select id="Ground" name="Ground" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="LLevel" class="col-sm-3 col-form-label">管段等级</label>
+					<div class="col-sm-9">
+						<select id="LLevel" name="LLevel" class="form-control">							
+						</select>
+					</div>
+				</div>
+				<div class="form-group row align-items-center">
+					<label class="col-sm-5 col-form-label">是否已检测</label>
+					<div class="col-sm-7">
+						<div class="form-check form-check-inline align-items-center">
+							<input checked class="form-check-input" type="radio" name="IsCheck" value="是">
+							<label class="form-check-label" for="IsCheck1">是</label>
+						  </div>
+						  <div class="form-check form-check-inline">
+							<input class="form-check-input" checked type="radio" name="IsCheck" value="否">
+							<label class="form-check-label" for="IsCheck2">否</label>
+						  </div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="Remark" class="col-sm-3 col-form-label">备注</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" name="Remark"></textarea>
+					</div>	
+				</div>
+				<div class="form-group row">
+					<label for="TopDepth" class="col-sm-3 col-form-label">管顶深度</label>
+					<div class="col-sm-9">
+						<input type="text" style="display: none;" class="form-control" id="TopDepth" name="TopDepth" placeholder="单位（mm）">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-6">
+					  <button type="submit" class="btn btn-primary">确认</button>
+					</div>
+					<div class="col-sm-6">
+					  <button type="submit" class="btn btn-primary">取消</button>
+					</div>
+				</div>
+			</form>
+			  <form id="projectform" class="myform" style="display: none;"><div>面表</div></form>
+			  <form id="landlineform"  class="myform" style="display: none;"><div>项目区</div></form>
+			  <!-- fixed:这里面放抽屉的：输入属性的表单--end -->
+			  
+		  	
+
+	        <div class="footer">
+	        	<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						  <!-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a> -->
+						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+	        </div>
+
+	      </div>
+    	</nav>
+
+        <!-- 页面地图主体  -->
+      <div id="mapContent" class="p-4 p-md-5 pt-5">
+        <h2>地图</h2>
+		<!-- fixed:测试抽屉表单切换函数 -->
+		<button onclick="formChange('pointform');">显示点属性</button>
+		<button onclick="formChange('lineform');">显示线属性</button>
+		<button onclick="formChange('landlineform');">显示面属性</button>
+		<!-- fixed:测试抽屉表单切换函数 --end -->
+        <div id="map"></div>
+      </div>
+		</div>
+		<!-- todo: 表格-->
+		<div for="table">
+			<table class="table">
+				<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">First Name</th>
+					  <th scope="col">Last Name</th>
+					  <th scope="col">Username</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <th scope="row">1</th>
+					  <td>Mark</td>
+					  <td>Otto</td>
+					  <td>@mdo</td>
+					</tr>
+					<tr>
+					  <th scope="row">2</th>
+					  <td>Jacob</td>
+					  <td>Thornton</td>
+					  <td>@fat</td>
+					</tr>
+					<tr>
+					  <th scope="row">3</th>
+					  <td>Larry</td>
+					  <td>the Bird</td>
+					  <td>@twitter</td>
+					</tr>
+				  </tbody>
+			</table>
+		</div>
+		<!-- todo: 表格 -- end -->
+	<div></div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<!-- 引用可编辑下拉框 -->
+	<script src="js/jquery.editable-select.min.js"></script>
+	<!-- 引用表格 -->
+	
+	<!-- 自己的 -->
+    <script src="js/main.js"></script>
+
+  </body>
+</html>
